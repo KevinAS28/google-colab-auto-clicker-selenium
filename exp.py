@@ -32,8 +32,6 @@ def get_duration_video(driver ):
     return driver.execute_script(f'return document.getElementsByClassName("{class_names["ytb_video_element"]}")[0].duration;')    
 
 
-
-
 def exp(driver: webdriver.Chrome):
     import traceback
 
@@ -44,9 +42,15 @@ def exp(driver: webdriver.Chrome):
         while True:
             random_code_cell = driver.find_elements_by_class_name('cell')
             for cell in random_code_cell:
-                cell.click()
+                try:
+                    cell.click()
+                except Exception as e:
+                    print(f'{str(e)}: {str(cell)} cannot be clicked')
                 # cell.send_keys(Keys.ENTER)
-                time.sleep(2)
+                try:
+                    time.sleep(2)
+                except KeyboardInterrupt:
+                    input('Press anything to continue')
 
             # code_cell = driver.find_element_by_id('cell-4SB9ss3mGfNi')
             # code_cell.click()
